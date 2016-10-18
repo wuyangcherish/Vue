@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初学Vue-demo3</title>
+</head>
+<body>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<h2>字符串反转操作</h2>
+	<div id="app">
+		<p>{{message}}</p>
+		<button v-on:click="reverseMessage">Reverse Message</button>
+	</div>
+
+	<script type="text/javascript">
+		new Vue({
+			el:'#app',
+			data:{
+				message: 'Hello World'
+			},
+			methods:{
+				reverseMessage: function(){
+					this.message = this.message.split('').reverse().join('')
+				}
+			}
+		})		
+	</script>
+</body>
+</html>

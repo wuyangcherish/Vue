@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初学Vue-demo13</title>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	
+    <h2>props 传递数据</h2>
+    <div id="parent">
+        <child my-message="hello"></child>
+    </div>
+
+    <template id="child">
+        <span>{{myMessage}}</span>
+    </template>
+
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript">
+    Vue.component('child',{
+        props:['myMessage'],
+        template:'#child'
+    })
+
+    new Vue({
+        el:'#parent'
+    })
+	</script>
+</body>
+</html>

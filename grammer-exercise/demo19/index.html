@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初学Vue-demo18</title>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+    <h2>Vue-Router</h2>
+    <div id="app">
+      <my-component></my-component>
+    </div>
+
+    <template id="myComponent">
+        <div>
+            <h2>{{msg}}</h2>
+            <button v-on:click="showMsg">Show Message</button>
+        </div>
+    </template>
+
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript">
+        new Vue({
+            el:'#app',
+            components:{
+                'my-component':{
+                    template:'#myComponent',
+                    data: function(){
+                        return{
+                            msg: 'This is a Component'
+                        }
+                    },
+                    methods:{
+                        showMsg: function(){
+                            alert(this.msg)
+                        }
+                    }
+                }
+            }
+        })
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

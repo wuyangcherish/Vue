@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初学Vue-demo18</title>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+    <h2>Vue-Router</h2>
+    <div id="app">
+        <p>
+            <!-- v-link进行导航 -->
+            <a href="#" v-link="{path:'/foo'}">Go to Foo</a>
+            <a href="#" v-link="{path:'/bar'}">Go to Bar</a>
+            <a href="#" v-link="{path:'/foo/foochild'}">Go to Bar</a>
+        </p>
+        <!-- 路由外链 -->
+        <router-view></router-view>
+    </div>
+	<script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/vue-router.js"></script>
+	<script type="text/javascript">
+    var Foo = Vue.extend({
+        template: '<div>'+
+                  '<h2>This is Foo</h2>'+
+                  '<router-view></router-view>'+   //嵌套的路由、foochild
+                  '</div>'
+    })
+
+    var Bar = Vue.extend({
+        template:'<p>This is Bar !</p>'
+    })
+
+    var FooChild = Vue.extend({
+        template: '<p>This is Foo/ child</p>'
+    })
+
+    //根路由
+    var App = Vue.extend({})
+
+    //创建路由实例
+    var router = new VueRouter();
+
+    //每条路由规则下面映射一个组件
+    router.map({
+        '/foo':{
+            component: Foo,
+
+            //子路由
+            subRoutes:{
+                '/foochild':{
+                    component: FooChild
+                }
+            }
+        },
+        '/bar':{
+            component: Bar
+        }
+    })
+
+    //启动路由
+    router.start(App, '#app')
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

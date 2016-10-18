@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初学Vue-demo20</title>
+</head>
+<body>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<h2>广播事件</h2>
+	<div id="app">
+		<input type="text" v-model="iptMsg">
+		<button v-on:click="notify">广播事件</button>
+		<child-component></child-component>
+	</div>
+
+	<template  id="childComponent">
+		<div>
+			<ul>
+				<li v-for="item in message">
+					此次广播事件数据是： {{item}}
+				</li>
+			</ul>
+		</div>
+	</template>
+
+	<script type="text/javascript">
+
+	//注册子组件
+	Vue.component('child-component',{
+		template: '#childComponent',
+		data: function(){
+			return {
+				message:[]
+			}
+		},
+		events:{
+			'recieve-msg': function(msg){
+				this.message.push(msg)
+			}
+		}
+	})
+
+	new Vue({
+		el:'#app',
+		data:{
+			iptMsg:''
+		},
+		methods:{
+			notify: function(){
+				if(this.iptMsg.trim()){
+					this.$broadcast('recieve-msg', this.iptMsg);
+					this.iptMsg='';
+				}
+			}
+		}
+	})
+		
+	</script>
+</body>
+</html>

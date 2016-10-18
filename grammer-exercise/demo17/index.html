@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初学Vue-demo17</title>
+<style type="text/css">
+*{
+    padding:0;
+    margin:0;
+}
+[v-cloak] {
+  display: none;
+}
+.btn{
+    margin:10px;
+}
+.content{
+    width:500px;
+    height:300px;
+    border:1px solid #ccc;
+    color:#fff;
+}
+
+.home{
+    width:500px;
+    height:300px;
+    text-align: center;
+    font-size:20px;
+    line-height: 300px;
+    background: red;
+}
+.post{
+    width:500px;
+    height:300px;
+    text-align: center;
+    font-size:20px;
+    line-height: 300px;
+    background: blue;
+}
+.archive{
+    width:500px;
+    height:300px;
+    text-align: center;
+    font-size:20px;
+    line-height: 300px;
+    background: green;
+}
+
+.fade-transition{
+}
+.fade-enter{
+    animation: fadeInRight 0.3s;
+} 
+.fade-leave{
+    animation: fadeOutLeft 0.1s;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+</style>
+</head>
+<body>
+	
+    <h2>组件切换</h2>
+    <div class="app" v-cloak>
+        <div class="change-component">
+            <ul>
+                <button class="btn" v-on:click="changeToHome()">切换到 Home 组件</button>
+                <button class="btn" v-on:click="changeToPost()">切换到 Post 组件</button>
+                <button class="btn" v-on:click="changeToArchive()">切换到 Archive 组件</button>
+            </ul>
+        </div>
+        <div class="content">
+              <component :is="currentView" transition="fade" transition-mode="out-in"></component>
+        </div>
+      
+    </div>
+
+    <template id="home">
+        <div class="home">
+            <p>这是 Home 组件渲染的内容</p>
+        </div>
+        
+    </template>
+
+
+    <template id="post">
+        <div class="post">
+            <p>这是 Post 组件渲染的内容</p>
+        </div>
+        
+    </template>
+
+
+    <template id="archive">
+        <div class="archive">
+            <p>这是 archive 组件渲染的内容</p>
+        </div>
+        
+    </template>
+
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript">
+        new Vue({
+            el:".app",  
+            data:{
+                currentView: 'home'
+            },
+            components:{
+                home:{
+                    template: '#home'
+                },
+                post:{
+                    template: '#post'
+                },
+                archive:{
+                    template: '#archive'
+                }
+            },
+            methods: {
+                changeToHome: function(){
+                    this.currentView = "home";
+                },
+                changeToPost: function(){
+                    this.currentView = "post";
+                },
+                changeToArchive: function(){
+                    this.currentView = "archive";
+                }, 
+            }
+        })
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

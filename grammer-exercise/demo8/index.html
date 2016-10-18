@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初学Vue-demo8</title>
+<style type="text/css">
+	.class-a{
+		color:#cc0000;
+		
+	}
+	.class-b {
+		font-size:20px;
+	}
+</style>
+</head>
+<body>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<h2>method绑定事件</h2>
+	<div id="app">
+		<input type="text" v-model="iputValue"/>
+		<button v-on:click='handleClick'>提交</button>
+		<ul>
+			<li v-for="list in lists">
+				{{list.item}}
+			</li>
+		</ul>
+
+		<button v-on:click="say('hello Vue.js')">我弹出的内容是用内联语句绑定的</button>
+	</div>
+
+	<script type="text/javascript">
+		new Vue({
+			el:'#app',
+			data:{
+				iputValue:'需要添加的内容',
+				lists:[
+					{item: 'first-demo-test'},
+					{item: 'second-demo-test'}
+				]
+			},
+			methods: {
+				handleClick: function(){
+					this.lists.push({item: this.iputValue})
+				},
+				say: function(msg){
+					alert(msg)
+				}
+			}
+		})		
+	</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初学Vue-demo9</title>
+<style type="text/css">
+	.expand-transition {
+		transition:all 0.3s ease;
+		height:30px;
+		padding:10px;
+		line-height: 30px;
+		background-color:#eee;
+		overflow: hidden;
+	}
+	.expand-enter, .expand-leave{
+		height:0;
+		padding:0 10px;
+		opacity: 0;
+	}
+
+	/* 第二个 div 的annimated 属性*/
+	.animated-transition{
+		display: inline-block;
+	}
+	.animated-enter{
+		animation: fadeIn .5s;
+	}
+	.animated-leave{
+		animation: fadeOut .5s;
+	}
+	@keyframes fadeIn{
+		0%{
+			transform: scale(0);
+		}
+		50%{
+			transform: scale(1.5)
+		}
+		100%{
+			transform: scale(1);
+		}
+	}
+
+	@keyframes fadeOut{
+		0%{
+			transform: scale(1);
+		}
+		50%{
+			transform: scale(1.5)
+		}
+		100%{
+			transform: scale(0);
+		}
+	}
+</style>
+</head>
+<body>
+	
+		<h2>过渡效果</h2>
+		<div id="app">
+			<div v-if="show" transition='expand'>Hello Vue</div>
+			<button v-on:click="changeShowState">Toggle transition</button>
+
+			<div v-if="aniShow" class="animated" transition="animated">Hello Vue v-animation</div>
+			<button v-on:click="changeAnimatedState">Toggle animatedState</button>
+		</div>
+
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:'#app',
+			data:{
+				show:false,
+				aniShow: false,
+				transitionName: 'expand'
+			},
+			methods: {
+				changeShowState: function(){
+					this.show = !this.show
+				},
+				changeAnimatedState: function(){
+					this.aniShow = !this.aniShow
+				}
+			}
+		})		
+	</script>
+</body>
+</html>

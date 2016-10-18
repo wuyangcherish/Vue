@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初学Vue-demo14</title>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	
+    <h2>动态绑定Props</h2>
+    <div id="parent">
+        <input type="text" v-model="parentMsg">
+        <br/>
+        <child v-bind:my-message="parentMsg"></child>
+    </div>
+
+    <template id="child">
+        <span>{{myMessage}}</span>
+    </template>
+
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript">
+    Vue.component('child',{
+        props:['myMessage'],
+        template:'#child'
+    })
+
+    new Vue({
+        el:'#parent',
+        data:{
+            parentMsg:'Vue 动态 props'
+        }
+    })
+	</script>
+</body>
+</html>

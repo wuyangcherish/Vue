@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初学Vue-demo16</title>
+<style type="text/css">
+.fontRed{
+    color:red;
+}
+[v-cloak] {
+  display: none;
+}
+</style>
+</head>
+<body>
+	
+    <h2>多个Slot对应分发内容</h2>
+    <div class="app" v-cloak>
+        <my-component>
+            <p class="fontRed" slot="second">这是在父组件模板中写的文字</p>
+            <p class="fontRed" slot="first">我们是依靠子组件的 Slot 显示出来的</p>
+        </my-component>
+    </div>
+
+    <template id="my-component">
+        <slot name="first">
+            显示第二句话
+        </slot>
+        <p>这句话是子组件中特有的</p>
+
+        <slot name="second">
+            显示第一句话
+        </slot>
+
+    </template>
+
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript">
+        Vue.component('my-component',{
+            template: '#my-component'
+        })
+
+        new Vue({
+            el:".app",
+        })
+	</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初学Vue-demo12</title>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	
+    <h2>父子间的通信</h2>
+    <div id="app">
+        <parent-component></parent-component>
+    </div>
+
+    <template id="parent-component">
+        <child-component1></child-component1>
+        <child-component2 v-bind:parent-msg="msg"></child-component2>
+        <child-component3 v-ref:c3></child-component3>
+        <button v-on:click="showChildComponentData">显示子组件的 data 内容</button>
+    </template>
+
+    <template id="child-component1">
+        <h2>This is child component111</h2>
+        <button v-on:click="showParentDataMsg">子组件 button 显示父组件Msg</button>
+    </template>
+
+    <template id="child-component2">
+        <h2>This is child component222</h2>
+        <h1>{{parentMsg}}</h1>
+    </template>
+
+     <template id="child-component3">
+        <h2>This is child component333</h2>
+    </template>
+
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript">
+
+        Vue.component('parent-component',{
+            template:'#parent-component',
+            data:function(){
+                return {
+                    msg: "I am a message from parent-component"
+                }
+            },
+            components:{
+                'child-component1':{
+                    template:'#child-component1',
+                    data: function(){
+                        return{
+                            msg: 'child component 111'
+                        }
+                    },
+                    methods:{
+                        showParentDataMsg: function(){
+                            alert(this.$parent.msg)
+                        }
+                    }
+                },
+                'child-component2': {
+                    template:'#child-component2',
+                    props:['parentMsg'],
+                    data: function(){
+                        return{
+                            msg:'child component 222'
+                        }
+                    }
+                },
+                'child-component3': {
+                    template:'#child-component3',
+                    data: function(){
+                        return{
+                            msg:'child component 333'
+                        }
+                    }
+                }
+            },
+            methods:{
+                showChildComponentData: function(){
+                    for(var i=0;i<this.$children.length;i++){
+                        console.log(this.$children[i].msg)
+                    }
+                    alert(this.$refs.c3.msg)
+                }
+            }
+        })
+
+
+        new Vue({
+            el:'#app',
+
+        })
+	</script>
+</body>
+</html>
+
+
+
+
+
