@@ -27,6 +27,7 @@
 24. vue-router SPA 登录注册demo
 25. vue-router SPA 子路由
 26. vue-vuex counter demo
+27. list: Weui+Vue+Python 做的一个评论小框框
 
 
 
