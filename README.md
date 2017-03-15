@@ -60,43 +60,8 @@ Vue 中默认对输出的文本都进行转义处理，假设在文本中存在 
 这种情况下 如果显示的内容是一段 HTML 代码， 你发现设置好的某些样式在上面没有显示出来，比如限制了一个图片的宽度，但是审查元素，发现该元素上面没有设置好的参数，那么检查下 ``<style type="text">`` 标签上面有没有 **scoped** 参数，去掉即可
 
 
-#### 关于 Vuejs 登录注册的问题【占位】
 
-后端用 **Flask** 实现的时候，因为 **Flask** 自带有 ``request.get_json()`` 的方法，那么在前端调用接口的时候传过去的必须是 json 的数据。所以必须是在【options】这个属性上设置下 **Content-Type**
 
-前端用 **Vue-resource** 实现的话
-```
-	this.$http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
-``` 
-
-这是标准的调用格式
-
-即 部分代码如下：
-
-```
-	this.$http.post(apiUrl, data, 
-	{
-		headers:{
-			'Content-Type': 'application/json; charset=UTF-8'
-		}
-	})
-	.then((res)=>{
-		//do something..
-	},(err)=>{
-		// error code here...
-	})
-```
-
-部分的 **python** 代码如下：
-
-```
-	@app.route('/login', methods=['POST'])
-	def login_in():
-		username  = request.get_json()['username]
-		password = request.get_json()['password']
-```
-
-类似这样接收数据
 
 
 
