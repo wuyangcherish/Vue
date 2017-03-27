@@ -28,7 +28,10 @@
 25. vue-router SPA 子路由
 26. vue-vuex counter demo
 27. list: Weui+Vue+Python 做的一个评论小框框
-28. Counter 计数器 -- Vuex demo1
+29. Counter 计数器 -- Vuex demo1
+30. Vuex Getter 的用法
+
+
 
 
 
@@ -170,4 +173,78 @@ index.js 就是入口的文件, 用来实例化组件  然后渲染出来的。
 会报错： vuex is not define
 
 见demo29 的方式【教程中最简单的vuex demo】
+
+在 store.js 中的方式是：
+
+```
+export default new Vuex.Store({
+
+})
+```
+
+这种方式。
+
+在引用的时候有两种方式，
+
+第一种是使用 **import** 的方式在需要的组件中引用，这种方式比较麻烦，
+如下：
+
+```
+import store from '../store.js'
+
+//... 省略 ...
+
+computed:{
+    count(){
+      return store.state.count
+    }
+  },
+  methods:{
+    increment(){
+      store.commit('increment')
+    },
+    decrement(){
+      store.commit('decrement')
+    }
+  }
+```
+还有一种方式是用从 **根组件** 注入到每一个组件。在main.js 中【vue-cli生成的脚手架中】添加 store
+
+```
+new Vue({
+	el: '#app',
+	template: '<App/>',
+	store,
+	components: {
+		App
+	}
+})
+```
+
+然后在各个组件中就不需要再次引入了。使用方式从 **store** 变成了 **this.$store** 的方式。如下：
+
+```
+computed:{
+    count(){
+      return this.$store.state.count
+    }
+  },
+  methods:{
+    increment(){
+      this.$store.commit('increment')
+    },
+    decrement(){
+      this.$store.commit('decrement')
+    }
+  }
+```
+
+**Getters** 这个属性相当于 **store** 里面的一个 **computed**,它可以对着 **state** 里面的数据进行一个操作【见demo30】
+
+
+**Mutations** 是更改 Vuex 的 store 的唯一的方式，类似于事件，不能直接调用，触发的方式也只有调用 **commit(handler name)** 来触发事件
+
+**Mutations 接收参数** 即 **载荷（payload）**  一般情况下参数都是 从 **commit** 传过来的一个对象 [见demo29 incrementDouble方法]
+
+
 

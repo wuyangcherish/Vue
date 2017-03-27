@@ -1,33 +1,39 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
     <button @click="increment">+</button>
     <button @click="decrement">-</button>
+    <button @click="incrementDouble">+2</button>
     <p>{{count}}</p>
   </div>
 </template>
 
 <script>
-import store from '../store.js'
+// import store from '../store.js'
 export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'first vuex counter demo'
     }
   },
   computed:{
     count(){
-      return store.state.count
+      return this.$store.state.count
     }
   },
   methods:{
     increment(){
-      store.commit('increment')
+      this.$store.commit('increment')
     },
     decrement(){
-      store.commit('decrement')
+      this.$store.commit('decrement')
+    },
+    incrementDouble(){
+      this.$store.commit({
+        type:'incrementDouble',
+        amount:2
+      })
     }
   }
 }
