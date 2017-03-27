@@ -28,6 +28,7 @@
 25. vue-router SPA 子路由
 26. vue-vuex counter demo
 27. list: Weui+Vue+Python 做的一个评论小框框
+28. Counter 计数器 -- Vuex demo1
 
 
 
@@ -109,7 +110,7 @@ $refs: 组件个数较多的时候，我们难以记住各个组件的顺序和�
 
 index.js 就是入口的文件, 用来实例化组件  然后渲染出来的。
 
-#### Vue-router SPA
+### Vue-router SPA
 
 下面我记录一下基于 vue-router 的最简单的 SPA
 文档的目录是下面这样的
@@ -156,28 +157,17 @@ index.js 就是入口的文件, 用来实例化组件  然后渲染出来的。
 大体的逻辑就是酱紫的~  
 
 
+### vuex
 
+首先[官方文档](https://vuex.vuejs.org/zh-cn/)在这里
 
+其次要注意的是： **store** 必须是单独出来写的，不能是直接在组件中使用比如在 main.js 中直接使用
+```
+	import Vuex from 'vuex'
+	Vue.use(Vuex)
+```
 
+会报错： vuex is not define
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+见demo29 的方式【教程中最简单的vuex demo】
 
