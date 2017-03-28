@@ -29,7 +29,8 @@
 26. vue-vuex counter demo
 27. list: Weui+Vue+Python 做的一个评论小框框
 29. Counter 计数器 -- Vuex demo1
-30. Vuex Getter 的用法
+30. Vuex Getter 用法
+31. Vuex Actions 用法
 
 
 
@@ -241,10 +242,124 @@ computed:{
 
 **Getters** 这个属性相当于 **store** 里面的一个 **computed**,它可以对着 **state** 里面的数据进行一个操作【见demo30】
 
+**Mutations**
 
 **Mutations** 是更改 Vuex 的 store 的唯一的方式，类似于事件，不能直接调用，触发的方式也只有调用 **commit(handler name)** 来触发事件
 
 **Mutations 接收参数** 即 **载荷（payload）**  一般情况下参数都是 从 **commit** 传过来的一个对象 [见demo29 incrementDouble方法]
 
+因为回调函数不晓得什么时候调用，或者是什么时候回调成功，如果有两个回调，也不知道是哪个先回调。所以 Mutations 都是同步事务
 
+
+**Actions** 
+
+**Actions** 跟mutations 的不同在于：
+
+1. Action 提交的是mutation，而不是直接变更状态
+2. Action 可以包含的任意异步操作
+
+actions 有两种写法一种是 context 的方法，然后``context.commit`` 触发 mutations 
+
+还有一种是参数直接是 **{{commit}}** 然后 ``commit(handler)`` 触发 mutations
+
+其中 context 为：
+
+![context](http://7xlqb6.com1.z0.glb.clouddn.com/vuex-actions-context)
+
+commit 为:
+
+```
+function boundCommit(type, payload, options) {
+	return commit.call(store, type, payload, options)
+}
+```
+由此可见，他们都是触发 ``boundCommit`` 这个函数
+
+actions 接收参数为：
+
+以 **载荷** 的形式分发的话
+
+```
+this.$store.dispatch("handler",{ampunt:10})
+```
+
+这样的话，在 **actions** 那边接收的话是用 **payload** 接收,如下
+
+```
+incrementAsync(context,payload){
+		console.info(context)
+		setTimeout(function(){
+			context.commit('increment',payload)
+		},1000)
+	}
+```
+
+以 **对象** 形式分发,如下
+
+```
+this.$store.dispatch({
+	type:'handler',
+	amount:10
+})
+```
+
+**actions** 接收形式同上 [见demo31]
+
+
+**Moudules**
+
+使用单一的状态🌲会导致所有的状态集中到一个很大的对象中，store 会变得臃肿，那么这个时候就需要按一定的规则将store分割出来，如下：
+
+```
+const moudleA = {
+	//...
+}
+
+const moduleB = {
+	//...
+}
+
+const store = new Vuex.Store({
+	modules:{
+		a: moduleA,
+		b: moduleB
+	}
+})
+
+store.state.a  //-> moduleA 的状态
+```
+
+【见demo32 hello.vue】
+
+
+对于模块内部的mutations 和 getter，接收到的第一个参数是 **模块的局部状态**
+
+```
+const ModuleA = {
+	state:{
+		count:0
+	},
+	mutations:{
+		increment(state){
+			state.count++
+		}
+	}
+}
+```
+
+在 **严格模式** 下面，使用 ``stric: true`` 的话，强制性所有的修改都是在 **mutations** 里面执行的。
+
+但是使用 ``v-model`` 的话会出现一些问题，因为 ``v-model`` 会视图直接修改某个data 的值，会导致抛出一个错误
+
+**解决的方法1** 
+
+就是给 input 去绑定 value 的值，然后在input 上面绑定一个``input`` 或者 ``change`` 事件，在该事件回调中调用 commit 触发 **mutations** 这样的话就等于不用 ``v-model`` 的属性了
+
+[见demo32 hello.vue]
+
+**解决方法2**
+
+使用带有 setter 的双向绑定计算属性，利用 set 函数来 commit 事件。可以保留 ``v-model`` 的使用
+
+[见demo32 updateInput.vue]
 

@@ -3,7 +3,6 @@
     <h1>{{ msg }}</h1>
     <button @click="increment">+</button>
     <button @click="decrement">-</button>
-    <button @click="incrementDouble">+2</button>
     <p>{{count}}</p>
   </div>
 </template>
@@ -13,7 +12,7 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'first vuex counter demo'
+      msg: 'Demo for Vuex Actions'
     }
   },
   computed:{
@@ -23,16 +22,21 @@ export default {
   },
   methods:{
     increment(){
-      this.$store.commit('increment')
+      //直接 触发 mutations
+      // this.$store.commit('increment')
+      //触发 actions
+      // this.$store.dispatch('incrementAsync',{
+      //   amount:10
+      // })
+
+      //以 对象  形式分发
+      this.$store.dispatch({
+        type:'incrementAsync',
+        amount:10
+      })
     },
     decrement(){
       this.$store.commit('decrement')
-    },
-    incrementDouble(){
-      this.$store.commit({
-        type:'incrementDouble',
-        amount:2
-      })
     }
   }
 }
