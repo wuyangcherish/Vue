@@ -28,13 +28,10 @@
 25. vue-router SPA 子路由
 26. vue-vuex counter demo
 27. list: Weui+Vue+Python 做的一个评论小框框
-29. Counter 计数器 -- Vuex demo1
-30. Vuex Getter 用法
-31. Vuex Actions 用法
-
-
-
-
+29. Counter 计数器 -- Vuex demo1[demo29]
+30. Vuex Getters 用法[demo30]
+31. Vuex Actions 用法[demo31]
+32. Vuex modules && 表单严格模式下 v-model 的用法[demo32]
 
 
 ### 笔记
@@ -362,4 +359,8 @@ const ModuleA = {
 使用带有 setter 的双向绑定计算属性，利用 set 函数来 commit 事件。可以保留 ``v-model`` 的使用
 
 [见demo32 updateInput.vue]
+
+Vuex 流程图如下：
+
+![vuex-流程图](http://7xlqb6.com1.z0.glb.clouddn.com/vuex.svg)
 
