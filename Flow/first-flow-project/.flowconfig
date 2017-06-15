@@ -1,6 +1,8 @@
 [ignore]
 .*/node_modules/.*
 .*/build/.*
+.*/test/.*
+./static/.*
 
 [include]
 
